@@ -21,7 +21,7 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a href="https://wa.me/2349117564724" className="text-gray-400 hover:text-blue-400 transition-colors">
-                <Whatsapp size={20} />
+                <Linkedin size={20} />
               </a>
               <a href="https://x.com/chiemeriedan?t=5DOWmCAYU_tPUEAqnNt1Ww&s=09" className="text-gray-400 hover:text-blue-400 transition-colors">
                 <Twitter size={20} />
