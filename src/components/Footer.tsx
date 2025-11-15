@@ -50,11 +50,11 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center space-x-2">
                 <Mail size={16} className="text-blue-400" />
-                <span className="text-gray-300">hello@deonecreativity.com</span>
+                <span className="text-gray-300">deonecreativity.com</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Phone size={16} className="text-blue-400" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
+                <span className="text-gray-300">+234 (911) 756-4724</span>
               </li>
               <li className="flex items-center space-x-2">
                 <MapPin size={16} className="text-blue-400" />
