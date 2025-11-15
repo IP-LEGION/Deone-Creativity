@@ -20,13 +20,13 @@ export default function Footer() {
               A modern tech studio building digital products and automation systems for individuals, startups, and small businesses. We merge software engineering, branding, and automation to create unique solutions.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-                <Linkedin size={20} />
+              <a href="https://wa.me/2349117564724" className="text-gray-400 hover:text-blue-400 transition-colors">
+                <Whatsapp size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+              <a href="https://x.com/chiemeriedan?t=5DOWmCAYU_tPUEAqnNt1Ww&s=09" className="text-gray-400 hover:text-blue-400 transition-colors">
                 <Twitter size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+              <a href="https://github.com/IP-LEGION" className="text-gray-400 hover:text-blue-400 transition-colors">
                 <Github size={20} />
               </a>
             </div>
