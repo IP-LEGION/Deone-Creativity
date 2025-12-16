@@ -1,148 +1,207 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  Code2,
+  LayoutDashboard,
+  Palette,
+  ArrowUpRight,
+  MessageCircle,
+  FileText,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+
+const WHATSAPP_LINK =
+  "https://wa.me/234XXXXXXXXXX?text=Hello%20I’d%20like%20to%20start%20a%20project";
 
 const services = [
   {
+    icon: Code2,
     title: "Custom Web Development",
     bestFor: "Startups & growing businesses",
-    outcome:
-      "A fast, scalable web presence that converts visitors into customers.",
+    description:
+      "High-performance websites engineered for clarity, conversion, and long-term maintainability.",
     timeline: "2–4 weeks",
-    price: "₦150,000",
+    caseStudy: "/case-studies/web",
     features: [
       "Modern responsive UI",
       "Clean, maintainable codebase",
-      "SEO-friendly structure",
+      "SEO-ready structure",
       "Performance optimization",
       "Cross-browser compatibility",
-      "Custom animations & interactions",
-      "Deployment support",
+      "Deployment & launch support",
     ],
   },
   {
+    icon: LayoutDashboard,
     title: "Web App Development",
     bestFor: "SaaS & internal tools",
-    outcome:
-      "Powerful applications that automate workflows and scale with your users.",
+    description:
+      "Purpose-built applications that automate workflows and scale confidently with your product.",
     timeline: "3–6 weeks",
-    price: "₦300,000",
+    caseStudy: "/case-studies/apps",
     features: [
       "Authentication & user roles",
-      "Dashboard & admin panels",
-      "API integration",
+      "Admin dashboards",
+      "API integrations",
       "Secure data handling",
       "Scalable architecture",
-      "Performance-focused build",
-      "Future-ready structure",
+      "Performance-focused builds",
     ],
   },
   {
+    icon: Palette,
     title: "UI / UX Design",
-    bestFor: "Brands that care about experience",
-    outcome:
-      "Interfaces that feel intuitive, intentional, and visually memorable.",
+    bestFor: "Brands that value experience",
+    description:
+      "Intentional interfaces that feel intuitive, consistent, and visually refined across devices.",
     timeline: "1–2 weeks",
-    price: "₦100,000",
+    caseStudy: "/case-studies/design",
     features: [
-      "User-centered design approach",
-      "High-fidelity UI designs",
-      "Design systems & consistency",
+      "User-centered design",
+      "High-fidelity UI",
+      "Design systems",
       "Mobile-first layouts",
       "Interactive prototypes",
-      "Accessibility considerations",
     ],
   },
 ];
 
-function ServiceCard({ service }) {
-  const [expanded, setExpanded] = useState(false);
-
-  const visibleFeatures = expanded
-    ? service.features
-    : service.features.slice(0, 4);
-
-  return (
-    <div className="group relative rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-      {/* Gradient Hover Accent */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-transparent to-black/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" />
-
-      <div className="relative z-10">
-        <h3 className="text-xl font-semibold text-gray-900">
-          {service.title}
-        </h3>
-
-        <p className="mt-1 text-sm text-gray-500">
-          Best for: {service.bestFor}
-        </p>
-
-        <p className="mt-4 text-gray-700 leading-relaxed">
-          {service.outcome}
-        </p>
-
-        <div className="mt-4 text-sm text-gray-600">
-          Typical timeline: <span className="font-medium">{service.timeline}</span>
-        </div>
-
-        {/* Features */}
-        <ul className="mt-4 space-y-2 text-sm text-gray-700">
-          {visibleFeatures.map((feature, index) => (
-            <li key={index} className="flex items-start gap-2">
-              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gray-900" />
-              {feature}
-            </li>
-          ))}
-        </ul>
-
-        {/* Progressive Reveal */}
-        {service.features.length > 4 && (
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="mt-3 text-sm font-medium text-gray-900 transition-opacity hover:opacity-70"
-          >
-            {expanded ? "Show fewer features" : "+ View all features"}
-          </button>
-        )}
-
-        {/* Price + CTA */}
-        <div className="mt-6 flex items-center justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-wide text-gray-500">
-              Investment starts at
-            </p>
-            <p className="text-lg font-semibold text-gray-900">
-              {service.price}
-            </p>
-          </div>
-
-          <button className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:bg-gray-800 hover:shadow-md">
-            Get a tailored quote
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function Services() {
+  const [openIndex, setOpenIndex] = useState(null);
+  const sectionRef = useRef(null);
+
+  // Scroll reveal (native, no libraries)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("opacity-100", "translate-y-0");
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="bg-gray-50 py-20">
+    <section
+      ref={sectionRef}
+      className="py-24 opacity-0 translate-y-6 transition-all duration-700"
+    >
       <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-12 max-w-2xl">
+        {/* Header */}
+        <div className="mb-20 max-w-3xl">
           <span className="text-xs uppercase tracking-widest text-gray-400">
             What I offer
           </span>
-          <h2 className="mt-2 text-3xl font-semibold text-gray-900">
+          <h2 className="mt-3 text-4xl font-semibold text-gray-900 leading-tight">
             Services designed for clarity, speed, and impact
           </h2>
-          <p className="mt-4 text-gray-600">
-            Every service is built with intention — focused on results,
-            usability, and long-term value rather than shortcuts.
+          <p className="mt-5 text-lg text-gray-600">
+            Every engagement is intentional — focused on long-term value,
+            usability, and outcomes that genuinely matter.
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <ServiceCard key={index} service={service} />
-          ))}
+        {/* Services Grid */}
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            const expanded = openIndex === index;
+            const visibleFeatures = expanded
+              ? service.features
+              : service.features.slice(0, 4);
+
+            return (
+              <div
+                key={index}
+                className="group relative rounded-2xl border border-gray-200 bg-white p-8 transition-all duration-300
+                hover:-translate-y-1 hover:shadow-lg hover:bg-gray-50"
+              >
+                {/* Divider line */}
+                <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-gray-900 transition-all duration-300 group-hover:w-full" />
+
+                {/* Icon + Title */}
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-900">
+                    <Icon size={20} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {service.title}
+                  </h3>
+                </div>
+
+                <p className="text-sm text-gray-500 mb-3">
+                  Best for: {service.bestFor}
+                </p>
+
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  {service.description}
+                </p>
+
+                <p className="text-sm text-gray-600 mb-6">
+                  Typical timeline:{" "}
+                  <span className="font-medium text-gray-800">
+                    {service.timeline}
+                  </span>
+                </p>
+
+                {/* Features */}
+                <ul className="space-y-2 text-sm text-gray-700 mb-6">
+                  {visibleFeatures.map((feature, i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gray-900" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                {service.features.length > 4 && (
+                  <button
+                    onClick={() =>
+                      setOpenIndex(expanded ? null : index)
+                    }
+                    className="mb-6 text-sm font-medium text-gray-900 hover:opacity-70 transition"
+                  >
+                    {expanded ? "Show fewer features" : "+ View all features"}
+                  </button>
+                )}
+
+                {/* Footer actions */}
+                <div className="flex flex-col gap-3 pt-4 border-t border-gray-100">
+                  <div className="flex items-center justify-between">
+                    <a
+                      href={WHATSAPP_LINK}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-gray-900 hover:opacity-70 transition"
+                    >
+                      Start a project
+                      <MessageCircle size={16} />
+                    </a>
+
+                    <Link
+                      to="/contact"
+                      className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-900 transition"
+                    >
+                      Contact
+                      <ArrowUpRight size={14} />
+                    </Link>
+                  </div>
+
+                  {/* Case study */}
+                  <Link
+                    to={service.caseStudy}
+                    className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition"
+                  >
+                    <FileText size={14} />
+                    View case study
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
